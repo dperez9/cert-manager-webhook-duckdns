@@ -50,7 +50,7 @@ This webhook has been tested with [cert-manager] v1.17.2 and Kubernetes v1.32.3 
     Example output:
 
             NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-            jetstack/cert-manager	  v1.3.0       	  v1.3.0     	    A Helm chart for cert-manager
+            jetstack/cert-manager	  v1.17.2       	  v1.17.2     	    A Helm chart for cert-manager
 
     Check the state and ensure that all pods are running fine (watch out for any issues regarding the `cert-manager-webhook-` pod  and its volume mounts):
 
