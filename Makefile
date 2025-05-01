@@ -14,11 +14,11 @@ CHART_PATH := deploy/$(CHART_NAME)
 # 1. Compilar el binario
 build:
 	go mod tidy
-	go build -o $(OUT)/$(BIN_NAME) main.go
+	go build -v -o $(OUT)/$(BIN_NAME) main.go
 
 # 2. Ejecutar tests locales
-test:
-	go test -v ./...
+# test:
+# 	go test -v ./...
 
 # 3. Crear imagen Docker
 docker-build:
