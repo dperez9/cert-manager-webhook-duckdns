@@ -22,15 +22,15 @@ secret:
   existingSecretName: "duckdns-api-token"
 
 clusterIssuer:
-  email: danielpero98@gmail.com
+  email: your-email@gmail.com
   staging:
     create: true
   production:
     create: false
     
 image:
-  repository: 10.0.2.4:32000/cert-manager-webhook-duckdns
-  tag: v1.0.0
+  repository: boxlover/cert-manager-webhook-duckdns
+  tag: 1.0.0
   pullPolicy: IfNotPresent 
   # pullSecret: ""
 

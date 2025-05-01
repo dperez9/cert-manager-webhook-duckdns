@@ -1,4 +1,6 @@
-# ACME webhook for DuckDNS (cert-manager-webhook-duckdns)
+# ACME webhook for DuckDNS (cert-manager-webhook-duckdns) - Cert Manager v1.17.2
+
+## This proyect is a fork from the repository [cert-manager-webhook-duckdns](https://github.com/ebrianne/cert-manager-webhook-duckdns). It has the necesary changes for compatibility with cert manager **v1.17.2**. Apart from that, the rest of the repository has remained unchanged.
 
 ![Build/Push (master)](https://github.com/ebrianne/cert-manager-webhook-duckdns/workflows/Build/Push%20(master)/badge.svg?branch=master)
 [![GoDoc](https://godoc.org/github.com/ebrianne/cert-manager-webhook-duckdns?status.png)](https://godoc.org/github.com/ebrianne/cert-manager-webhook-duckdns)
@@ -20,7 +22,7 @@ Ready made images are hosted on Docker Hub ([image tags]). Use at your own risk:
 
     ebrianne/cert-manager-webhook-duckdns
 ## Compatibility
-This webhook has been tested with [cert-manager] v1.2.0 and Kubernetes v0.17.x on `amd64`. In theory it should work on other hardware platforms as well but no steps have been taken to verify this. Please drop me a note if you had success.
+This webhook has been tested with [cert-manager] v1.17.2 and Kubernetes v1.32.3 on `amd64`. In theory it should work on other hardware platforms as well but no steps have been taken to verify this. Please drop me a note if you had success.
 
 ## Install with helm
 
@@ -32,8 +34,8 @@ This webhook has been tested with [cert-manager] v1.2.0 and Kubernetes v0.17.x o
         helm install \
         cert-manager jetstack/cert-manager \
         --namespace cert-manager \
-        --version v1.2.0 \
-        --set 'extraArgs={--dns01-recursive-nameservers=8.8.8.8:53\,1.1.1.1:53}' \
+        --version v1.17.2 \
+        --set 'extraArgs={--dns01-recursive-nameservers-only,--dns01-recursive-nameservers=52.5.228.95:53,52.1.17.250:53,8.8.8.8:53,1.1.1.1:53,9.9.9.9:53,208.67.222.222:53}' \
         --create-namespace \
         --set installCRDs=true
 
@@ -48,7 +50,7 @@ This webhook has been tested with [cert-manager] v1.2.0 and Kubernetes v0.17.x o
     Example output:
 
             NAME                    CHART VERSION   APP VERSION     DESCRIPTION
-            jetstack/cert-manager	  v1.2.0       	  v1.2.0     	    A Helm chart for cert-manager
+            jetstack/cert-manager	  v1.3.0       	  v1.3.0     	    A Helm chart for cert-manager
 
     Check the state and ensure that all pods are running fine (watch out for any issues regarding the `cert-manager-webhook-` pod  and its volume mounts):
 
