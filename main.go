@@ -1,23 +1,19 @@
 package main
 
 import (
+	"log"
 	"os"
 
-	"github.com/ebrianne/cert-manager-webhook-duckdns/duckdns"
-	"github.com/jetstack/cert-manager/pkg/acme/webhook/cmd"
-	"k8s.io/klog/v2"
+	"github.com/cert-manager/cert-manager/pkg/acme/webhook/cmd"
+	"github.com/dperez9/cert-manager-webhook-duckdns/duckdns"
 )
 
 func main() {
 	GroupName := os.Getenv("GROUP_NAME")
 	if GroupName == "" {
-		klog.Fatal("GROUP_NAME must be specified")
+		log.Fatal("GROUP_NAME must be specified")
 	}
 
-	// This will register our custom DNS provider with the webhook serving
-	// library, making it available as an API under the provided GroupName.
-	// You can register multiple DNS provider implementations with a single
-	// webhook, where the Name() method will be used to disambiguate between
-	// the different implementations.
+	// Registra el solver DuckDNS en el webhook, con el nombre de grupo proporcionado.
 	cmd.RunWebhookServer(GroupName, duckdns.NewSolver())
 }
