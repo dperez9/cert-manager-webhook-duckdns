@@ -1,26 +1,21 @@
-FROM golang:1.15-alpine3.12 AS build_deps
+# Etapa 1: Construcción
+FROM golang:1.22-alpine AS builder
 
 RUN apk add --no-cache git
 
-WORKDIR /workspace
-ENV GO111MODULE=on
-ENV GOPATH="/workspace/.go"
+WORKDIR /app
 
-COPY go.mod .
-COPY go.sum .
-
+COPY go.mod go.sum ./
 RUN go mod download
-
-FROM build_deps AS build
 
 COPY . .
 
-RUN CGO_ENABLED=0 go build -o webhook -ldflags '-w -extldflags "-static"' .
+# Compilación estática
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o webhook -ldflags="-s -w"
 
-FROM alpine:latest
+# Etapa 2: Imagen final minimalista
+FROM gcr.io/distroless/static
 
-RUN apk add --no-cache ca-certificates
+COPY --from=builder /app/webhook /webhook
 
-COPY --from=build /workspace/webhook /usr/local/bin/webhook
-
-ENTRYPOINT ["webhook"]
+ENTRYPOINT ["/webhook"]
